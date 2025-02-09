@@ -19,13 +19,13 @@ public class Schedule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_id")
-    private ShowData showData;
+    private Show show;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
-    private int order;
+    private int order_num;
     private LocalDate date;
     private LocalTime time;
     private int cost;

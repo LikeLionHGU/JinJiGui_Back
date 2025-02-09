@@ -22,7 +22,7 @@ public class Club {
     private User user;
 
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
-    private List<ShowData> showList = new ArrayList<>();
+    private List<Show> showList = new ArrayList<>();
 
     private String photo;
     private String name;

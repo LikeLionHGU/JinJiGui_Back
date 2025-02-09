@@ -9,6 +9,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Reservation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
@@ -20,7 +21,7 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_id")
-    private ShowData showData;
+    private Show show;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
