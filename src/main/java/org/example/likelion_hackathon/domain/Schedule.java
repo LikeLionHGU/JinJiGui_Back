@@ -25,7 +25,7 @@ public class Schedule {
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
-    private int order;
+    private int order_num;
     private LocalDate date;
     private LocalTime time;
     private int cost;
