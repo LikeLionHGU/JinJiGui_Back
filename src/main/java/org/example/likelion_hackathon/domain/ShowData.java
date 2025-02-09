@@ -13,9 +13,9 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Show {
+public class ShowData {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "show_id")
+    @Column(name = "show_data_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
