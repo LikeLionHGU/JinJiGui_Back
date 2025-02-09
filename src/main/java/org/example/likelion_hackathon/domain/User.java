@@ -17,5 +17,5 @@ public class User {
     private String phoneNumber;
     private int stdCode;
     private String email;
-    private boolean authority;
+    private int authority;
 }
