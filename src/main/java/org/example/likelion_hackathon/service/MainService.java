@@ -1,11 +1,9 @@
 package org.example.likelion_hackathon.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.likelion_hackathon.controller.response.HomeResponse;
-import org.example.likelion_hackathon.domain.Club;
+import org.example.likelion_hackathon.controller.response.MainResponse;
 import org.example.likelion_hackathon.domain.Show;
-import org.example.likelion_hackathon.dto.home.HomeClubDto;
-import org.example.likelion_hackathon.dto.home.HomeShowDto;
+import org.example.likelion_hackathon.dto.main.MainShowDto;
 import org.example.likelion_hackathon.repository.ClubRepository;
 import org.example.likelion_hackathon.repository.ShowRepository;
 import org.springframework.stereotype.Service;
@@ -15,20 +13,20 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class HomeService {
+public class MainService {
     private final ShowRepository showRepository;
     private final ClubRepository clubRepository;
 
-    public List<HomeShowDto> getShowDtoList() {
+    public List<MainShowDto> getShowDtoList() {
         List<Show> showList = showRepository.findAll();
-        return showList.stream().map(HomeShowDto::from).toList();
+        return showList.stream().map(MainShowDto::from).toList();
     }
 
-    public List<HomeResponse> getHomeResponses() {
-        List<HomeShowDto> showDtoList = getShowDtoList();
-        List<HomeResponse> homeResponseList = new ArrayList<>();
-        for (HomeShowDto homeShowDto : showDtoList) {
-            homeResponseList.add(HomeResponse.from(homeShowDto));
+    public List<MainResponse> getHomeResponses() {
+        List<MainShowDto> showDtoList = getShowDtoList();
+        List<MainResponse> homeResponseList = new ArrayList<>();
+        for (MainShowDto homeShowDto : showDtoList) {
+            homeResponseList.add(MainResponse.from(homeShowDto));
         }
         return homeResponseList;
     }

@@ -1,4 +1,4 @@
-package org.example.likelion_hackathon.dto.home;
+package org.example.likelion_hackathon.dto.main;
 
 import lombok.*;
 import org.example.likelion_hackathon.domain.Club;
@@ -8,13 +8,13 @@ import org.example.likelion_hackathon.domain.Club;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HomeClubDto {
+public class MainClubDto {
     private Long id;
     private String name;
     private String category;
 
-    public static HomeClubDto from(Club club) {
-        return HomeClubDto.builder()
+    public static MainClubDto from(Club club) {
+        return MainClubDto.builder()
                 .id(club.getId())
                 .name(club.getName())
                 .category(club.getCategory())

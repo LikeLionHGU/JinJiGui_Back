@@ -1,4 +1,4 @@
-package org.example.likelion_hackathon.dto.home;
+package org.example.likelion_hackathon.dto.main;
 
 import lombok.*;
 import org.example.likelion_hackathon.domain.Show;
@@ -10,22 +10,22 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HomeShowDto {
+public class MainShowDto {
     private Long id;
     private String poster;
     private LocalDate startDate;
     private LocalDate endDate;
     private String title;
-    private HomeClubDto club;
+    private MainClubDto club;
 
-    public static HomeShowDto from(Show show){
-        return HomeShowDto.builder()
+    public static MainShowDto from(Show show){
+        return MainShowDto.builder()
                 .id(show.getId())
                 .poster(show.getPoster())
                 .startDate(show.getStartDate())
                 .endDate(show.getEndDate())
                 .title(show.getTitle())
-                .club(HomeClubDto.from(show.getClub()))
+                .club(MainClubDto.from(show.getClub()))
                 .build();
     }
 }

@@ -1,8 +1,8 @@
 package org.example.likelion_hackathon.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.likelion_hackathon.controller.response.HomeResponse;
-import org.example.likelion_hackathon.service.HomeService;
+import org.example.likelion_hackathon.controller.response.MainResponse;
+import org.example.likelion_hackathon.service.MainService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,11 +13,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class HomeController {
-    private final HomeService homeService;
+    private final MainService homeService;
 
-    @GetMapping("/home")
-    public ResponseEntity<List<HomeResponse>> home() {
-        List<HomeResponse> homeResponses = new ArrayList<>();
+    @GetMapping("/main")
+    public ResponseEntity<List<MainResponse>> mainHome() {
+        List<MainResponse> homeResponses = new ArrayList<>();
 
         homeResponses = homeService.getHomeResponses();
 
