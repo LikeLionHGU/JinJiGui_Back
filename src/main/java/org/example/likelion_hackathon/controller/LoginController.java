@@ -9,11 +9,15 @@ import com.google.api.client.json.gson.GsonFactory;
 import jakarta.servlet.http.HttpSession;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import lombok.RequiredArgsConstructor;
+import org.example.likelion_hackathon.controller.response.LoginResponse;
+import org.example.likelion_hackathon.domain.User;
+import org.example.likelion_hackathon.service.LoginService;
 import org.example.likelion_hackathon.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.Collections;
 import java.util.Map;
 
@@ -24,9 +28,10 @@ public class LoginController {
     private String clientId;
 
     private final UserService userService;
+    private final LoginService loginService;
 
     @PostMapping("/api/auth/google/session")
-    public ResponseEntity<Map<String,Object>> googleLogin(@RequestParam String credential, HttpSession session) {
+    public ResponseEntity<LoginResponse> googleLogin(@RequestParam String credential, HttpSession session) {
         System.out.println(credential);
 
         HttpTransport transport = new NetHttpTransport();
@@ -44,20 +49,43 @@ public class LoginController {
                 String email = payload.getEmail();
                 String name = (String) payload.get("name");
 
-                userService.saveOfUpdateUser(id, email, name);
+                boolean isNew = userService.saveOfUpdateUser(id, email, name);
+                if(isNew){
+                    loginService.makeNewClubAndLinkItToUser(id);
+                }
+                User user = userService.getUser(id);
 
                 session.setAttribute("id", id);
                 session.setAttribute("email", email);
                 session.setAttribute("name", name);
+                session.setAttribute("authority", user.getAuthority());
 
-                return ResponseEntity.ok(Collections.singletonMap("status", true));
+                return ResponseEntity.ok().body(LoginResponse.from(true, id, user.getAuthority()));
             }
             else{
-                return ResponseEntity.badRequest().body(Collections.singletonMap("error", "invalid"));
+                return ResponseEntity.badRequest().body(LoginResponse.from(false, "-1", -1));
             }
 
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(Collections.singletonMap("error", e.getMessage()));
+            return ResponseEntity.status(500).body(LoginResponse.from(false, "-1", -1));
         }
+    }
+
+    @GetMapping("/api/auth/google/logout")
+    public ResponseEntity<Map<String, Boolean>> googleLogout(HttpSession session) {
+        session.invalidate();
+        if(session.) {
+            return ResponseEntity.ok().body(Collections.singletonMap("status",true));
+        }
+    }
+
+    @GetMapping("/loginTest")
+    public ResponseEntity<String> loginTest(HttpSession session) {
+        String id = (String) session.getAttribute("id");
+        String email = (String) session.getAttribute("email");
+        String name = (String) session.getAttribute("name");
+        int authority = (int) session.getAttribute("authority");
+
+        return ResponseEntity.ok().body(id + " - " + email + " - " + name + " - " + authority);
     }
 }
