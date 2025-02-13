@@ -28,5 +28,5 @@ public class Reservation {
     private Schedule schedule;
 
     private int ticketNumber;
-    private boolean idDeposit;
+    private boolean isDeposit;
 }
