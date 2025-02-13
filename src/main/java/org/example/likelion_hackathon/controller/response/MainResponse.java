@@ -1,19 +1,22 @@
 package org.example.likelion_hackathon.controller.response;
 
 import lombok.*;
-import org.example.likelion_hackathon.dto.main.MainShowDto;
+import org.example.likelion_hackathon.dto.main.ClubMainDto;
+import org.example.likelion_hackathon.dto.main.ShowMainDto;
 
-@Builder
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class MainResponse {
-    private MainShowDto show;
+    private ShowMainDto show;
+    private ClubMainDto club;
 
-    public static MainResponse from(MainShowDto homeshowDto) {
+    public static MainResponse from(ShowMainDto show, ClubMainDto club) {
         return MainResponse.builder()
-                .show(homeshowDto)
+                .show(show)
+                .club(club)
                 .build();
     }
 }

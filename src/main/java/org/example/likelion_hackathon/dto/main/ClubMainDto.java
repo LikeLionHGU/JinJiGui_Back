@@ -6,15 +6,15 @@ import org.example.likelion_hackathon.domain.Club;
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class MainClubDto {
+@AllArgsConstructor
+public class ClubMainDto {
     private Long id;
     private String name;
     private String category;
 
-    public static MainClubDto from(Club club) {
-        return MainClubDto.builder()
+    public static ClubMainDto from(Club club) {
+        return ClubMainDto.builder()
                 .id(club.getId())
                 .name(club.getName())
                 .category(club.getCategory())
