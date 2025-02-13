@@ -71,21 +71,20 @@ public class LoginController {
         }
     }
 
+    //TODO : session == null 확인하는 코드 필요함
     @GetMapping("/api/auth/google/logout")
     public ResponseEntity<Map<String, Boolean>> googleLogout(HttpSession session) {
         session.invalidate();
-        if(session.) {
             return ResponseEntity.ok().body(Collections.singletonMap("status",true));
-        }
     }
 
-    @GetMapping("/loginTest")
-    public ResponseEntity<String> loginTest(HttpSession session) {
-        String id = (String) session.getAttribute("id");
-        String email = (String) session.getAttribute("email");
-        String name = (String) session.getAttribute("name");
-        int authority = (int) session.getAttribute("authority");
-
-        return ResponseEntity.ok().body(id + " - " + email + " - " + name + " - " + authority);
-    }
+//    @GetMapping("/loginTest")
+//    public ResponseEntity<String> loginTest(HttpSession session) {
+//        String id = (String) session.getAttribute("id");
+//        String email = (String) session.getAttribute("email");
+//        String name = (String) session.getAttribute("name");
+//        int authority = (int) session.getAttribute("authority");
+//
+//        return ResponseEntity.ok().body(id + " - " + email + " - " + name + " - " + authority);
+//    }
 }
