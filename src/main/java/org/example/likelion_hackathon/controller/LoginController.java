@@ -8,6 +8,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import jakarta.servlet.http.HttpSession;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import lombok.RequiredArgsConstructor;
 import org.example.likelion_hackathon.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +18,17 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class LoginController {
     @Value("${google.oauth.client-id}")
     private String clientId;
 
     private final UserService userService;
 
-    public LoginController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @PostMapping("/google/session")
+    @PostMapping("/api/auth/google/session")
     public ResponseEntity<Map<String,Object>> googleLogin(@RequestParam String credential, HttpSession session) {
+        System.out.println(credential);
+
         HttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = new GsonFactory();
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
@@ -51,7 +50,7 @@ public class LoginController {
                 session.setAttribute("email", email);
                 session.setAttribute("name", name);
 
-                return ResponseEntity.ok(Collections.singletonMap("status", "success"));
+                return ResponseEntity.ok(Collections.singletonMap("status", true));
             }
             else{
                 return ResponseEntity.badRequest().body(Collections.singletonMap("error", "invalid"));
