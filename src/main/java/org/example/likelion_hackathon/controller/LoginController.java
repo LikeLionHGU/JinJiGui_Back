@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.Collections;
 import java.util.Map;
 
@@ -42,7 +41,7 @@ public class LoginController {
 
         try {
             GoogleIdToken idToken = verifier.verify(credential);
-            if(idToken != null) {
+            if (idToken != null) {
                 Payload payload = idToken.getPayload();
 
                 String id = payload.getSubject();
@@ -50,7 +49,7 @@ public class LoginController {
                 String name = (String) payload.get("name");
 
                 boolean isNew = userService.saveOfUpdateUser(id, email, name);
-                if(isNew){
+                if (isNew) {
                     loginService.makeNewClubAndLinkItToUser(id);
                 }
                 User user = userService.getUser(id);
@@ -61,8 +60,7 @@ public class LoginController {
                 session.setAttribute("authority", user.getAuthority());
 
                 return ResponseEntity.ok().body(LoginResponse.from(true, id, user.getAuthority()));
-            }
-            else{
+            } else {
                 return ResponseEntity.badRequest().body(LoginResponse.from(false, "-1", -1));
             }
 
@@ -71,20 +69,16 @@ public class LoginController {
         }
     }
 
-    //TODO : session == null 확인하는 코드 필요함
     @GetMapping("/api/auth/google/logout")
     public ResponseEntity<Map<String, Boolean>> googleLogout(HttpSession session) {
         session.invalidate();
-            return ResponseEntity.ok().body(Collections.singletonMap("status",true));
-    }
 
-//    @GetMapping("/loginTest")
-//    public ResponseEntity<String> loginTest(HttpSession session) {
-//        String id = (String) session.getAttribute("id");
-//        String email = (String) session.getAttribute("email");
-//        String name = (String) session.getAttribute("name");
-//        int authority = (int) session.getAttribute("authority");
-//
-//        return ResponseEntity.ok().body(id + " - " + email + " - " + name + " - " + authority);
-//    }
+        try {
+            String id = (String) session.getAttribute("id");
+
+            return ResponseEntity.status(500).body(Collections.singletonMap("status", false));
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(Collections.singletonMap("status", true));
+        }
+    }
 }
