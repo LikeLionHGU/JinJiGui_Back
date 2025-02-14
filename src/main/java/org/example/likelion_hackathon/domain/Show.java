@@ -2,6 +2,8 @@ package org.example.likelion_hackathon.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.likelion_hackathon.controller.request.CreateShowRequest;
+import org.example.likelion_hackathon.dto.createShow.CreateScheduleDto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,4 +44,22 @@ public class Show {
     private LocalDate endDate;
     private int runtime;
     private String location;
+
+    public static Show from(CreateShowRequest request, String poster) {
+        return Show.builder()
+                .postDate(LocalDate.now())
+                .view(0)
+                .poster(poster)
+                .content(request.getContent())
+                .maxTickets(request.getMaxTickets())
+                .maxPeople(request.getMaxPeople())
+                .applyPeople(0)
+                .account(request.getAccount())
+                .title(request.getTitle())
+                .startDate(request.getStartDate())
+                .endDate(request.getEndDate())
+                .runtime(request.getRuntime())
+                .location(request.getLocation())
+                .build();
+    }
 }

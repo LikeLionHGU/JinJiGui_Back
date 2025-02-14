@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClubRepository extends JpaRepository<Club, Long> {
     Club findClubByUser(User user);
+
+    Club findClubByUser_Id(String userId);
 }
