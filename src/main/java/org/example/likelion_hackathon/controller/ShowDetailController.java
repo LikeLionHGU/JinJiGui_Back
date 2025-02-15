@@ -15,7 +15,7 @@ public class ShowDetailController {
 
     @GetMapping("/show/{id}")
     public ResponseEntity<ShowDetailResponse> getShowDetail(@PathVariable Long id) {
-        ShowDetailResponse showDetailResponse = ShowDetailResponse.from(showDetailService.getShowById(id));
+        ShowDetailResponse showDetailResponse = showDetailService.returnShowDetailResponse(id);
         return ResponseEntity.ok().body(showDetailResponse);
     }
 }
