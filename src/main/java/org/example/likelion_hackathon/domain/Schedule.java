@@ -30,6 +30,8 @@ public class Schedule {
     private LocalDate date;
     private LocalTime time;
     private int cost;
+    private int maxPeople;
+    private int applyPeople;
 
     public static Schedule from(CreateScheduleDto createScheduleDto) {
         return Schedule.builder()
@@ -37,6 +39,8 @@ public class Schedule {
                 .date(createScheduleDto.getDate())
                 .time(createScheduleDto.getTime())
                 .cost(createScheduleDto.getCost())
+                .maxPeople(createScheduleDto.getMaxPeople())
+                .applyPeople(0)
                 .build();
     }
 }
