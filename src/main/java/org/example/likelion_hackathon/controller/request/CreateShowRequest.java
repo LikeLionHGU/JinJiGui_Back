@@ -1,0 +1,21 @@
+package org.example.likelion_hackathon.controller.request;
+
+import lombok.*;
+import org.example.likelion_hackathon.dto.createShow.CreateScheduleDto;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Getter
+public class CreateShowRequest {
+    private String title;
+    private String location;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private int runtime;
+    private String account;
+    private String content;
+    private int maxTickets;
+    private int maxPeople;
+    private List<CreateScheduleDto> schedule;
+}
