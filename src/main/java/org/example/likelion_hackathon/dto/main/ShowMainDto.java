@@ -10,22 +10,20 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MainShowDto {
+public class ShowMainDto {
     private Long id;
     private String poster;
     private LocalDate startDate;
     private LocalDate endDate;
     private String title;
-    private MainClubDto club;
 
-    public static MainShowDto from(Show show){
-        return MainShowDto.builder()
+    public static ShowMainDto from(Show show) {
+        return ShowMainDto.builder()
                 .id(show.getId())
                 .poster(show.getPoster())
                 .startDate(show.getStartDate())
                 .endDate(show.getEndDate())
                 .title(show.getTitle())
-                .club(MainClubDto.from(show.getClub()))
                 .build();
     }
 }
