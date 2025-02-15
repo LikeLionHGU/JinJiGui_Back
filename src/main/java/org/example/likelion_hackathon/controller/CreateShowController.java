@@ -9,10 +9,7 @@ import org.example.likelion_hackathon.service.CreateShowService;
 import org.example.likelion_hackathon.service.S3Service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -29,8 +26,8 @@ public class CreateShowController {
 
     private final S3Service s3Service;
 
-    @PostMapping("/manager/create/save")
-    public ResponseEntity<Map<String,Object>> createShow(@RequestParam("poster") MultipartFile multipartFile, @RequestBody CreateShowRequest createShowRequest, HttpSession session){
+    @PostMapping(value = "/manager/create/save", consumes = "multipart/form-data")
+    public ResponseEntity<Map<String,Object>> createShow(@RequestPart("poster") MultipartFile multipartFile, @RequestPart("request") CreateShowRequest createShowRequest, HttpSession session){
         String uploadUrl;
         try {
             uploadUrl = s3Service.uploadFiles(multipartFile, "show/");
