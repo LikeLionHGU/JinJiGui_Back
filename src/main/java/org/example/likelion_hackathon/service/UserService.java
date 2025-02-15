@@ -12,7 +12,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public void saveOfUpdateUser(String id, String email, String name){
+    public boolean saveOfUpdateUser(String id, String email, String name){
         Optional<User> existingUser = userRepository.findById(id);
 
         if(existingUser.isPresent()){
@@ -20,12 +20,18 @@ public class UserService {
             user.setEmail(email);
             user.setName(name);
             userRepository.save(user);
+            return false;
         }else{
             User user = new User();
             user.setId(id);
             user.setEmail(email);
             user.setName(name);
             userRepository.save(user);
+            return true;
         }
+    }
+
+    public User getUser(String id){
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("no such user"));
     }
 }

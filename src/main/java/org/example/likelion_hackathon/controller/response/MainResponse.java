@@ -1,19 +1,22 @@
 package org.example.likelion_hackathon.controller.response;
 
+import jakarta.persistence.SequenceGenerators;
 import lombok.*;
-import org.example.likelion_hackathon.dto.main.MainShowDto;
+import org.example.likelion_hackathon.dto.main.MainDto;
 
-@Builder
-@Getter
+import java.util.List;
+
 @Setter
+@Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class MainResponse {
-    private MainShowDto show;
+    private List<MainDto> show_info;
 
-    public static MainResponse from(MainShowDto homeshowDto) {
+    public static MainResponse from(List<MainDto> show_info) {
         return MainResponse.builder()
-                .show(homeshowDto)
+                .show_info(show_info)
                 .build();
     }
 }

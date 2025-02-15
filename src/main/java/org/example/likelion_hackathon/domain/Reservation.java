@@ -23,7 +23,7 @@ public class Reservation {
     @JoinColumn(name = "show_id")
     private Show show;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
