@@ -54,7 +54,6 @@ public class Show {
                 .endDate(request.getEndDate())
                 .runtime(request.getRuntime())
                 .location(request.getLocation())
-                .scheduleList(request.getSchedule().stream().map(Schedule::from).toList())
                 .build();
     }
 }

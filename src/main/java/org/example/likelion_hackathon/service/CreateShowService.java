@@ -32,6 +32,7 @@ public class CreateShowService {
             schedule.setShow(show);
             scheduleRepository.save(schedule);
         }
+
     }
 
     public void linkShowToClub(HttpSession session, Show show) {
