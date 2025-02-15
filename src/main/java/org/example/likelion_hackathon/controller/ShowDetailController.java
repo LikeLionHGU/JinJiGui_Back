@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.likelion_hackathon.controller.request.ReservationRequest;
 import org.example.likelion_hackathon.controller.response.ReservationResponse;
 import org.example.likelion_hackathon.controller.response.ShowDetailResponse;
+import org.example.likelion_hackathon.domain.Schedule;
 import org.example.likelion_hackathon.domain.Show;
 import org.example.likelion_hackathon.repository.ShowRepository;
 import org.example.likelion_hackathon.service.ShowDetailService;
@@ -33,8 +34,7 @@ public class ShowDetailController {
 
     @PostMapping("/show/{id}/reservation")
     public ResponseEntity<ReservationResponse> reservation(@PathVariable Long id, @RequestBody ReservationRequest reservationRequest, HttpSession session) {
-        Show show = showDetailService.getShowById(id);
-        ReservationResponse reservationResponse = null;
+        ReservationResponse reservationResponse = showDetailService.returnReservationResponse(id, session, reservationRequest);
         return ResponseEntity.ok().body(reservationResponse);
     }
 }

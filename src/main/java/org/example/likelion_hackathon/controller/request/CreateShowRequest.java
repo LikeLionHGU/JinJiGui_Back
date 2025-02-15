@@ -16,6 +16,5 @@ public class CreateShowRequest {
     private String account;
     private String content;
     private int maxTickets;
-    private int maxPeople;
     private List<CreateScheduleDto> schedule;
 }

@@ -8,6 +8,7 @@ import org.example.likelion_hackathon.dto.createShow.CreateScheduleDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -36,8 +37,6 @@ public class Show {
     private String poster;
     private String content;
     private int maxTickets;
-    private int maxPeople;
-    private int applyPeople;
     private String account;
     private String title;
     private LocalDate startDate;
@@ -52,14 +51,13 @@ public class Show {
                 .poster(poster)
                 .content(request.getContent())
                 .maxTickets(request.getMaxTickets())
-                .maxPeople(request.getMaxPeople())
-                .applyPeople(0)
                 .account(request.getAccount())
                 .title(request.getTitle())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .runtime(request.getRuntime())
                 .location(request.getLocation())
+                .scheduleList(request.getSchedule().stream().map(Schedule::from).toList())
                 .build();
     }
 }

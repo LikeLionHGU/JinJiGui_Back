@@ -1,14 +1,12 @@
 package org.example.likelion_hackathon.controller.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.likelion_hackathon.domain.Reservation;
 import org.example.likelion_hackathon.domain.Show;
 import org.example.likelion_hackathon.domain.User;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

@@ -19,6 +19,8 @@ public class ScheduleDetailDto {
     private LocalDate date;
     private LocalTime time;
     private int cost;
+    private int maxPeople;
+    private int applyPeople;
 
     public static ScheduleDetailDto from(Schedule schedule) {
         return ScheduleDetailDto.builder()
@@ -27,6 +29,8 @@ public class ScheduleDetailDto {
                 .date(schedule.getDate())
                 .time(schedule.getTime())
                 .cost(schedule.getCost())
+                .maxPeople(schedule.getMaxPeople())
+                .applyPeople(schedule.getApplyPeople())
                 .build();
     }
 }
