@@ -28,7 +28,7 @@ public class Reservation {
     private Schedule schedule;
 
     private int ticketNumber;
-    private boolean idDeposit;
+    private boolean isDeposit;
 
     public static Reservation from(User user, Show show, Schedule schedule, int ticketNumber) {
         return Reservation.builder()
@@ -36,7 +36,7 @@ public class Reservation {
                 .show(show)
                 .schedule(schedule)
                 .ticketNumber(ticketNumber)
-                .idDeposit(false)
+                .isDeposit(false)
                 .build();
     }
 }
