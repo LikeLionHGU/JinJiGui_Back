@@ -15,6 +15,8 @@ public class UserReservationDto {
     private ScheduleDto schedule;
     private ReservationDto reservation;
     private int totalCost;
+    private String poster;
+    private int ticketNumber;
 
     public static UserReservationDto from(Reservation reservation) {
         return UserReservationDto.builder()
@@ -22,6 +24,8 @@ public class UserReservationDto {
                 .schedule(ScheduleDto.from(reservation.getSchedule()))
                 .reservation(ReservationDto.from(reservation))
                 .totalCost(reservation.getSchedule().getCost())
+                .poster(reservation.getSchedule().getShow().getPoster())
+                .ticketNumber(reservation.getTicketNumber())
                 .build();
     }
 }
