@@ -36,8 +36,6 @@ public class Show {
     private String poster;
     private String content;
     private int maxTickets;
-    private int maxPeople;
-    private int applyPeople;
     private String account;
     private String title;
     private LocalDate startDate;
@@ -52,8 +50,6 @@ public class Show {
                 .poster(poster)
                 .content(request.getContent())
                 .maxTickets(request.getMaxTickets())
-                .maxPeople(request.getMaxPeople())
-                .applyPeople(0)
                 .account(request.getAccount())
                 .title(request.getTitle())
                 .startDate(request.getStartDate())

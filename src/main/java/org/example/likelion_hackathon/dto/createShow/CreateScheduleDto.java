@@ -11,4 +11,5 @@ public class CreateScheduleDto {
     private LocalDate date;
     private LocalTime time;
     private int cost;
+    private int maxPeople;
 }
