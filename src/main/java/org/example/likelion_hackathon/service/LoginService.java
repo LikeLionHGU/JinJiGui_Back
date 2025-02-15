@@ -20,7 +20,7 @@ public class LoginService {
         newClub.setUser(user);
         clubRepository.save(newClub);
 
-        Club club = clubRepository.findClubByUser(user);
+        Club club = clubRepository.findClubByUser_Id(user.getId());
         user.setClub(club);
         userRepository.save(user);
 
