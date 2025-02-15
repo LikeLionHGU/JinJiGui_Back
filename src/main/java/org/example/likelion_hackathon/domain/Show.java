@@ -8,6 +8,7 @@ import org.example.likelion_hackathon.dto.createShow.CreateScheduleDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -56,6 +57,7 @@ public class Show {
                 .endDate(request.getEndDate())
                 .runtime(request.getRuntime())
                 .location(request.getLocation())
+                .scheduleList(request.getSchedule().stream().map(Schedule::from).toList())
                 .build();
     }
 }
