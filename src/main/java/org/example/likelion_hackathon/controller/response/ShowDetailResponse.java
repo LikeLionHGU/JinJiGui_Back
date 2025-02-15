@@ -19,6 +19,7 @@ public class ShowDetailResponse {
     private Long id;
     private String title;
     private String clubName;
+    private String content;
     private String showPic;
     private String location;
     private LocalDate startDate;
@@ -33,6 +34,7 @@ public class ShowDetailResponse {
                 .id(show.getId())
                 .title(show.getTitle())
                 .clubName(clubName)
+                .content(show.getContent())
                 .showPic(show.getPoster())
                 .location(show.getLocation())
                 .startDate(show.getStartDate())
