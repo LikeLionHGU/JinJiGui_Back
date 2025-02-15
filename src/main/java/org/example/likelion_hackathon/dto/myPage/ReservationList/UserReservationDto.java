@@ -18,7 +18,7 @@ public class UserReservationDto {
 
     public static UserReservationDto from(Reservation reservation) {
         return UserReservationDto.builder()
-                .show(ShowDto.from(reservation.getShow()))
+                .show(ShowDto.from(reservation.getSchedule().getShow()))
                 .schedule(ScheduleDto.from(reservation.getSchedule()))
                 .reservation(ReservationDto.from(reservation))
                 .totalCost(reservation.getSchedule().getCost())

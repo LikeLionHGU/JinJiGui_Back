@@ -20,20 +20,15 @@ public class Reservation {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "show_id")
-    private Show show;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
     private int ticketNumber;
     private boolean isDeposit;
 
-    public static Reservation from(User user, Show show, Schedule schedule, int ticketNumber) {
+    public static Reservation from(User user, Schedule schedule, int ticketNumber) {
         return Reservation.builder()
                 .user(user)
-                .show(show)
                 .schedule(schedule)
                 .ticketNumber(ticketNumber)
                 .isDeposit(false)
