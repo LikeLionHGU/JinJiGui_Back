@@ -28,13 +28,13 @@ public class MypageController {
         return ResponseEntity.ok(user_reservation_response);
     }
 
-    @GetMapping("/edit")
-    public ResponseEntity<> getUserInfo() {
-        return ResponseEntity.ok(mypageService.getUserInfo());
-    }
+//    @GetMapping("/edit")
+//    public ResponseEntity<> getUserInfo() {
+//        return ResponseEntity.ok(mypageService.getUserInfo());
+//    }
+//
+//    @PatchMapping("/save")
+//    public ResponseEntity<> saveUserInfo(@RequestBody MypageUserRequest request) {
+//        return ResponseEntity.ok(mypageService.saveUserInfo(request));
 
-    @PatchMapping("/save")
-    public ResponseEntity<> saveUserInfo(@RequestBody MypageUserRequest request) {
-        return ResponseEntity.ok(mypageService.saveUserInfo(request));
-    }
 }

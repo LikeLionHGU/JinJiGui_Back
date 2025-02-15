@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 
 public class UserReservationResponse {
-    List<UserReservationDto> user_reservation_list;
+    private List<UserReservationDto> user_reservation_list;
 
     public static UserReservationResponse from(List<UserReservationDto> user_reservation_list) {
         return UserReservationResponse.builder()

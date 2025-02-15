@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.likelion_hackathon.domain.Show;
 
 @Data
 @Builder
@@ -12,4 +13,8 @@ import lombok.NoArgsConstructor;
 public class ShowDto {
     private String title;
     private String accountNumber;
+
+    public static ShowDto from(Show show) {
+        return new ShowDto(show.getTitle(), show.getAccount());
+    }
 }

@@ -11,9 +11,8 @@ import lombok.*;
 public class ReservationDto {
     private boolean isDeposit;
 
-    public static ReservationDto from(Reservation reservation){
-        return ReservationDto.builder()
-                .isDeposit(reservation.getIsDeposit())
-                .build();
+    public static ReservationDto from(Reservation reservation) {
+        return new ReservationDto(reservation.isDeposit());
     }
+
 }
