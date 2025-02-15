@@ -29,4 +29,14 @@ public class Reservation {
 
     private int ticketNumber;
     private boolean idDeposit;
+
+    public static Reservation from(User user, Show show, Schedule schedule, int ticketNumber) {
+        return Reservation.builder()
+                .user(user)
+                .show(show)
+                .schedule(schedule)
+                .ticketNumber(ticketNumber)
+                .idDeposit(false)
+                .build();
+    }
 }
