@@ -27,9 +27,6 @@ public class Show {
     private Club club;
 
     @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
-    private List<Reservation> reservationList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
     private List<Schedule> scheduleList = new ArrayList<>();
 
     private LocalDate postDate;

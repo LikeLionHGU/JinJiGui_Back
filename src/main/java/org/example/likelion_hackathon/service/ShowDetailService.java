@@ -80,9 +80,8 @@ public class ShowDetailService {
     public void reservation(HttpSession session, Long showId, Long scheduleId, int ticketNumber){
         String userId = (String) session.getAttribute("id");
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("no such user"));
-        Show show = showRepository.findById(showId).orElseThrow(() -> new IllegalArgumentException("no such show"));
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new IllegalArgumentException("no such schedule"));
-        Reservation reservation = Reservation.from(user, show, schedule, ticketNumber);
+        Reservation reservation = Reservation.from(user, schedule, ticketNumber);
 
         reservationRepository.save(reservation);
     }
