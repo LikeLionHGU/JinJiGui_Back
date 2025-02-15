@@ -1,6 +1,5 @@
 package org.example.likelion_hackathon.dto.myPage.ReservationList;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +10,6 @@ import org.example.likelion_hackathon.domain.Reservation;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class UserReservationDto {
     private ShowDto show;
     private ScheduleDto schedule;
@@ -20,10 +18,10 @@ public class UserReservationDto {
 
     public static UserReservationDto from(Reservation reservation) {
         return UserReservationDto.builder()
-                .show(ShowDto.from(reservation.getShow()))  // ✅ 올바른 변환 메서드 사용
-                .schedule(ScheduleDto.from(reservation.getSchedule())) // ✅ 추가 변환 적용
-                .reservation(ReservationDto.from(reservation)) // ✅ 추가 변환 적용
-                .totalCost(reservation.getSchedule().getCost()) // ✅ 총 비용 추가
+                .show(ShowDto.from(reservation.getShow()))
+                .schedule(ScheduleDto.from(reservation.getSchedule()))
+                .reservation(ReservationDto.from(reservation))
+                .totalCost(reservation.getSchedule().getCost())
                 .build();
     }
 }
