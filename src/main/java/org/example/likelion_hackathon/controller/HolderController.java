@@ -27,21 +27,40 @@ public class HolderController {
 
     @PatchMapping("/manager/holder/save")
     public ResponseEntity<?> saveHolders(@RequestBody List<ReservationIdDto> reservationList) {
-        if(reservationList == null || reservationList.isEmpty()){
+        if (reservationList == null || reservationList.isEmpty()) {
             Map<String, Object> response = new HashMap<>();
             response.put("status", false);
             response.put("message", "예매자가 선택되지 않았습니다");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
         boolean check = holderService.updateIsDepositToTrue(reservationList);
-        if(check){
+        if (check) {
             Map<String, Boolean> response = Collections.singletonMap("status", true);
             return ResponseEntity.ok().body(response);
-        }
-        else{
+        } else {
             Map<String, Object> response = new HashMap<>();
             response.put("status", false);
             response.put("message", "정상적으로 저장되지 않았습니다");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+    @PatchMapping("/manager/holder/delete")
+    public ResponseEntity<?> deleteHolders(@RequestBody List<ReservationIdDto> reservationList) {
+        if (reservationList == null || reservationList.isEmpty()) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", false);
+            response.put("message", "예매자가 선택되지 않았습니다");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+        boolean check = holderService.deleteReservations(reservationList);
+        if (check) {
+            Map<String, Boolean> response = Collections.singletonMap("status", true);
+            return ResponseEntity.ok().body(response);
+        } else {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", false);
+            response.put("message", "정상적으로 삭제되지 않았습니다");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }

@@ -51,4 +51,16 @@ public class HolderService {
         }
         return true;
     }
+
+    public boolean deleteReservations(List<ReservationIdDto> reservationList) {
+        for (ReservationIdDto reservationIdDto : reservationList) {
+            Long id = reservationIdDto.getReservationId();
+            Reservation reservation = reservationRepository.findById(id).orElse(null);
+            if (reservation == null) {
+                return false;
+            }
+            reservationRepository.delete(reservation);
+        }
+        return true;
+    }
 }
