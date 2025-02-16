@@ -9,11 +9,13 @@ import org.example.likelion_hackathon.domain.Schedule;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ManagerScheduleDto {
+    private Long scheduleId;
     private int maxPeople;
     private int applyPeople;
 
     public static ManagerScheduleDto from(Schedule schedule) {
         return ManagerScheduleDto.builder()
+                .scheduleId(schedule.getId())
                 .maxPeople(schedule.getMaxPeople())
                 .applyPeople(schedule.getApplyPeople())
                 .build();
