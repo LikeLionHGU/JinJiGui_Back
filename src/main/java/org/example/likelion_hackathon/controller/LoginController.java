@@ -18,7 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,7 +32,7 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/api/auth/google/session")
-    public ResponseEntity<LoginResponse> googleLogin(@RequestParam String credential, HttpSession session) {
+    public ResponseEntity<?> googleLogin(@RequestParam String credential, HttpSession session) {
         HttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = new GsonFactory();
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
@@ -57,13 +59,19 @@ public class LoginController {
                 session.setAttribute("name", name);
                 session.setAttribute("authority", user.getAuthority());
 
-                return ResponseEntity.ok().body(LoginResponse.from(true, id, user.getAuthority()));
+                Map<String, Object> response = new HashMap<>();
+                response.put("status", true);
+                response.put("id", id);
+                response.put("isFirst", isNew);
+                response.put("authority", user.getAuthority());
+
+                return ResponseEntity.ok().body(response);
             } else {
-                return ResponseEntity.badRequest().body(LoginResponse.from(false, "-1", -1));
+                return ResponseEntity.badRequest().body(Collections.singletonMap("status",false));
             }
 
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(LoginResponse.from(false, "-1", -1));
+            return ResponseEntity.status(500).body(Collections.singletonMap("status",false));
         }
     }
 
