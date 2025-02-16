@@ -1,10 +1,12 @@
 package org.example.likelion_hackathon.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.likelion_hackathon.controller.request.HolderRequest;
 import org.example.likelion_hackathon.controller.response.holder.HolderResponse;
 import org.example.likelion_hackathon.domain.Reservation;
 import org.example.likelion_hackathon.domain.Schedule;
 import org.example.likelion_hackathon.domain.User;
+import org.example.likelion_hackathon.dto.holder.ReservationIdDto;
 import org.example.likelion_hackathon.repository.ReservationRepository;
 import org.example.likelion_hackathon.repository.ScheduleRepository;
 import org.example.likelion_hackathon.repository.UserRepository;
@@ -35,5 +37,18 @@ public class HolderService {
             holderResponseList.add(holderResponse);
         }
         return holderResponseList;
+    }
+
+    public boolean updateIsDepositToTrue(List<ReservationIdDto> reservationList) {
+        for (ReservationIdDto reservationIdDto : reservationList) {
+            Long id = reservationIdDto.getReservationId();
+            Reservation reservation = reservationRepository.findById(id).orElse(null);
+            if (reservation == null) {
+                return false;
+            }
+            reservation.setDeposit(true);
+            reservationRepository.save(reservation);
+        }
+        return true;
     }
 }
