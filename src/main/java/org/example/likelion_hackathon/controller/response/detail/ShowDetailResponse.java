@@ -1,4 +1,4 @@
-package org.example.likelion_hackathon.controller.response;
+package org.example.likelion_hackathon.controller.response.detail;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,6 @@ import org.example.likelion_hackathon.dto.showDetail.UserDetailDto;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Builder
@@ -31,7 +30,7 @@ public class ShowDetailResponse {
     private UserDetailDto user;
     private List<ScheduleDetailDto> schedule;
 
-    public static ShowDetailResponse from(Show show) {
+    public static ShowDetailResponse from(Show show, List<ScheduleDetailDto> scheduleList) {
         Club club = show.getClub();
 
         return ShowDetailResponse.builder()
@@ -46,7 +45,7 @@ public class ShowDetailResponse {
                 .maxTickets(show.getMaxTickets())
                 .runTime(show.getRuntime())
                 .user(UserDetailDto.from(club.getUser()))
-                .schedule(show.getScheduleList().stream().map(ScheduleDetailDto::from).toList())
+                .schedule(scheduleList)
                 .build();
     }
 }
