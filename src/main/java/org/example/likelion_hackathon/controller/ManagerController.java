@@ -8,10 +8,15 @@ import org.example.likelion_hackathon.dto.manager.ManagerShowDto;
 import org.example.likelion_hackathon.service.ManagerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,5 +28,18 @@ public class ManagerController {
         List<ManagerShowDto> managerShowDtoList = managerService.managerShowDtoList(session);
         ManagerShowListResponse managerShowListResponse = ManagerShowListResponse.from(managerShowDtoList);
         return ResponseEntity.ok().body(managerShowListResponse);
+    }
+
+    @DeleteMapping("/manager/show/{scheduleId}")
+    public ResponseEntity<?> deleteManagerShow(@PathVariable Long scheduleId) {
+        boolean check = managerService.deleteSelectedShow(scheduleId);
+        if (check) {
+            return ResponseEntity.ok().body(Collections.singletonMap("status",true));
+        } else{
+            Map<String, Object> badResponse = new HashMap<>();
+            badResponse.put("status",false);
+            badResponse.put("message","동아리 삭제에 실패했습니다");
+            return ResponseEntity.ok().body(badResponse);
+        }
     }
 }
