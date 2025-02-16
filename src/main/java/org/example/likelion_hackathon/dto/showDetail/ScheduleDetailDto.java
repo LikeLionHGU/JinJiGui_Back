@@ -1,15 +1,14 @@
 package org.example.likelion_hackathon.dto.showDetail;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.servlet.http.HttpSession;
+import lombok.*;
 import org.example.likelion_hackathon.domain.Schedule;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +20,7 @@ public class ScheduleDetailDto {
     private int cost;
     private int maxPeople;
     private int applyPeople;
+    private boolean canReservation;
 
     public static ScheduleDetailDto from(Schedule schedule) {
         return ScheduleDetailDto.builder()

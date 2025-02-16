@@ -83,6 +83,8 @@ public class ShowDetailService {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new IllegalArgumentException("no such schedule"));
         Reservation reservation = Reservation.from(user, schedule, ticketNumber);
 
+        schedule.setApplyPeople(schedule.getApplyPeople() + ticketNumber);
+        scheduleRepository.save(schedule);
         reservationRepository.save(reservation);
     }
 
@@ -94,5 +96,16 @@ public class ShowDetailService {
     public String getAccount(Long showId){
         Show show = showRepository.findById(showId).orElseThrow(() -> new IllegalArgumentException("no such show"));
         return show.getAccount();
+    }
+
+    public List<ScheduleDetailDto> getScheduleDetailDetailDtoList(Show show, HttpSession session){
+        List<Schedule> scheduleList = show.getScheduleList();
+        List<ScheduleDetailDto> scheduleDetailDtoList = scheduleList.stream().map(ScheduleDetailDto::from).toList();
+        String userId = (String) session.getAttribute("id");
+        for(ScheduleDetailDto scheduleDetailDto : scheduleDetailDtoList){
+            Reservation reservation = reservationRepository.getReservationBySchedule_IdAndUser_Id(scheduleDetailDto.getId(), userId);
+            scheduleDetailDto.setCanReservation(reservation != null);
+        }
+        return scheduleDetailDtoList;
     }
 }
