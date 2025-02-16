@@ -4,8 +4,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.example.likelion_hackathon.controller.request.ReservationRequest;
 import org.example.likelion_hackathon.controller.response.ReservationResponse;
-import org.example.likelion_hackathon.controller.response.ShowDetailResponse;
-import org.example.likelion_hackathon.domain.Schedule;
+import org.example.likelion_hackathon.controller.response.detail.DetailResponse;
+import org.example.likelion_hackathon.controller.response.detail.ShowDetailResponse;
 import org.example.likelion_hackathon.domain.Show;
 import org.example.likelion_hackathon.repository.ShowRepository;
 import org.example.likelion_hackathon.service.ShowDetailService;
@@ -19,7 +19,7 @@ public class ShowDetailController {
     private final ShowRepository showRepository;
 
     @GetMapping("/show/{id}")
-    public ResponseEntity<ShowDetailResponse> getShowDetail(@PathVariable Long id, HttpSession session) {
+    public ResponseEntity<DetailResponse> getShowDetail(@PathVariable Long id, HttpSession session) {
         boolean isExist = showDetailService.countUpView(id);
         ShowDetailResponse showDetailResponse = null;
         if(isExist){
@@ -30,7 +30,8 @@ public class ShowDetailController {
             show.setId((long)-1);
             showDetailResponse = ShowDetailResponse.from(show, null);
         }
-        return ResponseEntity.ok().body(showDetailResponse);
+        DetailResponse detailResponse = DetailResponse.from(showDetailResponse);
+        return ResponseEntity.ok().body(detailResponse);
     }
 
     @PostMapping("/show/{id}/reservation")

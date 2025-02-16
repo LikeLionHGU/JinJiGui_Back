@@ -3,18 +3,15 @@ package org.example.likelion_hackathon.service;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.example.likelion_hackathon.controller.request.ReservationRequest;
-import org.example.likelion_hackathon.controller.response.ShowDetailResponse;
 import org.example.likelion_hackathon.domain.*;
 import org.example.likelion_hackathon.controller.response.ReservationResponse;
 import org.example.likelion_hackathon.dto.showDetail.ScheduleDetailDto;
-import org.example.likelion_hackathon.dto.showDetail.UserDetailDto;
 import org.example.likelion_hackathon.repository.ReservationRepository;
 import org.example.likelion_hackathon.repository.ScheduleRepository;
 import org.example.likelion_hackathon.repository.ShowRepository;
 import org.example.likelion_hackathon.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -1,6 +1,5 @@
-package org.example.likelion_hackathon.controller.response;
+package org.example.likelion_hackathon.controller.response.detail;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +11,6 @@ import org.example.likelion_hackathon.dto.showDetail.UserDetailDto;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Builder
