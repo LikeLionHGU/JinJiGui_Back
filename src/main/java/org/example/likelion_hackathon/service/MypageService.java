@@ -1,6 +1,8 @@
 package org.example.likelion_hackathon.service;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.example.likelion_hackathon.controller.request.MypageRequest;
 import org.example.likelion_hackathon.domain.User;
 import org.example.likelion_hackathon.dto.myPage.ReservationList.UserReservationDto;
 import org.example.likelion_hackathon.repository.ReservationRepository;
@@ -30,5 +32,21 @@ public class MypageService {
 
         Optional<User> userOptional = userRepository.findById(userId);
         return userOptional.orElse(null);
+    }
+
+    public boolean update(MypageRequest mypageRequest, HttpSession session) {
+        User user = userRepository.findById((String) session.getAttribute("id")).orElse(null);
+        if(user == null) {
+            return false;
+        }
+        user.setName(mypageRequest.getUserName());
+        user.setPhoneNumber(mypageRequest.getPhoneNumber());
+        user.setStdCode(mypageRequest.getStdCode());
+        userRepository.save(user);
+        return true;
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
     }
 }

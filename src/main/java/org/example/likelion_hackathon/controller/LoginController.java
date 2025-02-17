@@ -33,6 +33,7 @@ public class LoginController {
 
     @PostMapping("/api/auth/google/session")
     public ResponseEntity<?> googleLogin(@RequestParam String credential, HttpSession session) {
+        System.out.println("idToken >> " + credential);
         HttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = new GsonFactory();
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
@@ -86,5 +87,15 @@ public class LoginController {
         } catch (Exception e) {
             return ResponseEntity.ok().body(Collections.singletonMap("status", true));
         }
+    }
+
+    @GetMapping("/loginTest")
+    public ResponseEntity<?> test(HttpSession session){
+        Map<String, Object> response = new HashMap<>();
+        response.put("id", session.getAttribute("id"));
+        response.put("name", session.getAttribute("name"));
+        response.put("authority", session.getAttribute("authority"));
+        response.put("email", session.getAttribute("email"));
+        return ResponseEntity.ok().body(response);
     }
 }
