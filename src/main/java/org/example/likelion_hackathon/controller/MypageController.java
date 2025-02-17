@@ -21,7 +21,7 @@ public class MypageController {
 
     @GetMapping("/reservation")
     public ResponseEntity<UserReservationResponse> getUserReservations(HttpSession session) {
-        String userId = (String) session.getAttribute("id");
+        String userId = "117308007595329545848"; //(String) session.getAttribute("id");
 
         List<UserReservationDto> userReservationList = mypageService.getUserReservations(userId);
         UserReservationResponse userReservationResponse = UserReservationResponse.from(userReservationList);

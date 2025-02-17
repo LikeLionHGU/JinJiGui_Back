@@ -12,11 +12,13 @@ import org.example.likelion_hackathon.domain.Show;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShowDto {
+    private Long id;
     private String title;
     private String accountNumber;
 
     public static ShowDto from(Show show) {
         return ShowDto.builder()
+                .id(show.getId())
                 .title(show.getTitle())
                 .accountNumber(show.getAccount())
                 .build();
