@@ -25,6 +25,9 @@ public class CreateShowService {
         Show show = Show.from(createShowRequest, poster);
         linkShowToClub(session, show);
         showRepository.save(show);
+        Club club = show.getClub();
+        club.setName(createShowRequest.getClubName());
+        clubRepository.save(club);
 
         List<CreateScheduleDto> scheduleDtoList = createShowRequest.getSchedule();
         List<Schedule> scheduleList = scheduleDtoList.stream().map(Schedule::from).toList();

@@ -10,6 +10,7 @@ import java.util.List;
 public class CreateShowRequest {
     private String title;
     private String location;
+    private String clubName;
     private LocalDate startDate;
     private LocalDate endDate;
     private int runtime;
