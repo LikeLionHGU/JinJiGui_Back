@@ -10,7 +10,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry corsRegistry) {
 
         corsRegistry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000") // https://google-login-test-one.vercel.app/loading
+                .allowedOrigins("http://localhost:3000", "https://jin-ji-gui-front.vercel.app/")
                 .allowedMethods("*")
                 .allowCredentials(true);
     }
