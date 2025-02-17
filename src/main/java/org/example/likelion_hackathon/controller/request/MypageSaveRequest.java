@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MypageRequest {
+public class MypageSaveRequest {
     private String name;
     private String phoneNumber;
     private int stdCode;
