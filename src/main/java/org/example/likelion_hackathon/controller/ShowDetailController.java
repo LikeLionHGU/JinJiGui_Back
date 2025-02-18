@@ -34,10 +34,11 @@ public class ShowDetailController {
         return ResponseEntity.ok().body(detailResponse);
     }
 
-    @PostMapping("/show/{id}/reservation")
-    public ResponseEntity<ReservationResponse> reservation(@PathVariable Long id, @RequestBody ReservationRequest reservationRequest, HttpSession session) {
+    @PostMapping("/show/reservation")
+    public ResponseEntity<ReservationResponse> reservation(@RequestBody ReservationRequest reservationRequest, HttpSession session) {
         System.out.println("<<ok>>");
-        ReservationResponse reservationResponse = showDetailService.returnReservationResponse(id, session, reservationRequest);
+        Long showId = reservationRequest.getShowId();
+        ReservationResponse reservationResponse = showDetailService.returnReservationResponse(showId, session, reservationRequest);
         return ResponseEntity.ok().body(reservationResponse);
     }
 }
