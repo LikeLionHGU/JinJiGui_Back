@@ -42,7 +42,7 @@ public class ShowDetailService {
         }
     }
 
-    public ReservationResponse returnReservationResponse(Long showId, HttpSession session, ReservationRequest reservationRequest){
+    public ReservationResponse returnReservationResponse(ReservationRequest reservationRequest){
         int totalCost;
         String account = null;
         int remain_tickets;
@@ -51,12 +51,15 @@ public class ShowDetailService {
         Long scheduleId = reservationRequest.getScheduleId();
 
         remain_tickets = canReserve(scheduleId, ticketNumber);
+        Schedule schedule = scheduleRepository.findById(reservationRequest.getScheduleId()).orElse(null);
+        Long showId = schedule.getShow().getId();
+        String userId = reservationRequest.getUserId();
         if(remain_tickets < 0){
             totalCost = 0;
             reservationResponse = ReservationResponse.from(false, totalCost, account, remain_tickets);
         }
         else{
-            reservation(session, showId, scheduleId, ticketNumber);
+            reservation(userId, showId, scheduleId, ticketNumber);
 
             totalCost = ticketNumber * getTicketCost(scheduleId);
             account = getAccount(showId);
@@ -74,8 +77,8 @@ public class ShowDetailService {
         return maxPeople - (applyPeople + ticketNumber);
     }
 
-    public void reservation(HttpSession session, Long showId, Long scheduleId, int ticketNumber){
-        String userId = (String) session.getAttribute("id");
+    public void reservation(String userId, Long showId, Long scheduleId, int ticketNumber){
+        System.out.println("<<WoW USER : "+userId);
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("no such user"));
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new IllegalArgumentException("no such schedule"));
         Reservation reservation = Reservation.from(user, schedule, ticketNumber);

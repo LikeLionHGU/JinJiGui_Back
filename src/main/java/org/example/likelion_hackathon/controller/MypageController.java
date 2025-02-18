@@ -20,10 +20,8 @@ import java.util.*;
 public class MypageController {
     private final MypageService mypageService;
 
-    @GetMapping("/mypage/reservation")
-    public ResponseEntity<UserReservationResponse> getUserReservations(HttpSession session) {
-        String userId = (String) session.getAttribute("id");
-
+    @GetMapping("/mypage/reservation/{userId}")
+    public ResponseEntity<UserReservationResponse> getUserReservations(@PathVariable String userId) {
         List<UserReservationDto> userReservationList = mypageService.getUserReservations(userId);
         UserReservationResponse userReservationResponse = UserReservationResponse.from(userReservationList);
         return ResponseEntity.ok().body(userReservationResponse);
