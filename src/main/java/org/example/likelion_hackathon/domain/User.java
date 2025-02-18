@@ -17,9 +17,8 @@ public class User {
     @Column(name = "user_id")
     private String id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "club_id")
-    private Club club;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Show> showList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Reservation> reservationList = new ArrayList<>();
