@@ -10,7 +10,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry corsRegistry) {
 
         corsRegistry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000/", "https://jin-ji-gui-front.vercel.app/")
+                .allowedOrigins("http://localhost:3000/", "https://jin-ji-gui-front.vercel.app/", "https://jin-ji-gui-front.netlify.app/", "https://jin-ji-gui-front.netlify.app")
                 .allowedMethods("*")
                 .allowCredentials(true);
     }
