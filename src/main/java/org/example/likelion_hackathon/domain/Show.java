@@ -23,8 +23,8 @@ public class Show {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "club_id")
-    private Club club;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
     private List<Schedule> scheduleList = new ArrayList<>();
@@ -40,6 +40,7 @@ public class Show {
     private LocalDate endDate;
     private int runtime;
     private String location;
+    private String clubName;
 
     public static Show from(CreateShowRequest request, String poster) {
         return Show.builder()
@@ -54,6 +55,7 @@ public class Show {
                 .endDate(request.getEndDate())
                 .runtime(request.getRuntime())
                 .location(request.getLocation())
+                .clubName(request.getClubName())
                 .build();
     }
 }

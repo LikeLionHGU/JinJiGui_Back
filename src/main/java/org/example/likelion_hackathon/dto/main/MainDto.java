@@ -9,12 +9,12 @@ import lombok.*;
 @NoArgsConstructor
 public class MainDto {
     private ShowMainDto show;
-    private ClubMainDto club;
+    private String clubName;
 
-    public static MainDto from(ShowMainDto show, ClubMainDto club) {
+    public static MainDto from(ShowMainDto show) {
         return MainDto.builder()
                 .show(show)
-                .club(club)
+                .clubName(show.getClubName())
                 .build();
     }
 }

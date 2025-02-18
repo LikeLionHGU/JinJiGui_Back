@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.likelion_hackathon.domain.Club;
 import org.example.likelion_hackathon.domain.Show;
 import org.example.likelion_hackathon.dto.showDetail.ScheduleDetailDto;
 import org.example.likelion_hackathon.dto.showDetail.UserDetailDto;
@@ -31,12 +30,11 @@ public class ShowDetailResponse {
     private List<ScheduleDetailDto> schedule;
 
     public static ShowDetailResponse from(Show show, List<ScheduleDetailDto> scheduleList) {
-        Club club = show.getClub();
 
         return ShowDetailResponse.builder()
                 .id(show.getId())
                 .title(show.getTitle())
-                .clubName(club.getName())
+                .clubName(show.getClubName())
                 .content(show.getContent())
                 .showPic(show.getPoster())
                 .location(show.getLocation())
@@ -44,7 +42,7 @@ public class ShowDetailResponse {
                 .endDate(show.getEndDate())
                 .maxTickets(show.getMaxTickets())
                 .runTime(show.getRuntime())
-                .user(UserDetailDto.from(club.getUser()))
+                .user(UserDetailDto.from(show.getUser()))
                 .schedule(scheduleList)
                 .build();
     }
