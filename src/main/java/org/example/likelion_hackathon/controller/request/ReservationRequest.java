@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ReservationRequest {
+    private Long showId;
     private Long scheduleId;
     private int ticketNumber;
 }
