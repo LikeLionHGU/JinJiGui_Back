@@ -8,6 +8,7 @@ import org.example.likelion_hackathon.domain.Show;
 import org.example.likelion_hackathon.dto.createShow.CreateScheduleDto;
 import org.example.likelion_hackathon.repository.ScheduleRepository;
 import org.example.likelion_hackathon.repository.ShowRepository;
+import org.example.likelion_hackathon.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +18,11 @@ import java.util.List;
 public class CreateShowService {
     private final ShowRepository showRepository;
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
     public void saveShowAndSchedule(CreateShowRequest createShowRequest, String poster, HttpSession session) {
         Show show = Show.from(createShowRequest, poster);
+        show.setUser(userRepository.findById((String) session.getAttribute("id")).orElseThrow(() -> new IllegalArgumentException("no login")));
         showRepository.save(show);
 
         List<CreateScheduleDto> scheduleDtoList = createShowRequest.getSchedule();
