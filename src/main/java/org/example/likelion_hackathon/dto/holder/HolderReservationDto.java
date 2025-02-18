@@ -11,13 +11,13 @@ import org.example.likelion_hackathon.domain.Reservation;
 public class HolderReservationDto {
     private Long id;
     private int ticketNumber;
-    private boolean isDeposit;
+    private String isDeposit;
 
     public static HolderReservationDto from(Reservation reservation) {
         return HolderReservationDto.builder()
                 .id(reservation.getId())
                 .ticketNumber(reservation.getTicketNumber())
-                .isDeposit(reservation.isDeposit())
+                .isDeposit(reservation.isDeposit()?"O":"X")
                 .build();
     }
 }

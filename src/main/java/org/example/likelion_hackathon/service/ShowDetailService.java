@@ -54,9 +54,11 @@ public class ShowDetailService {
         Schedule schedule = scheduleRepository.findById(reservationRequest.getScheduleId()).orElse(null);
         Long showId = schedule.getShow().getId();
         String userId = reservationRequest.getUserId();
+        Show show = showRepository.findById(showId).orElse(null);
+        String qrImage = show.getQrCode();
         if(remain_tickets < 0){
             totalCost = 0;
-            reservationResponse = ReservationResponse.from(false, totalCost, account, remain_tickets);
+            reservationResponse = ReservationResponse.from(false, totalCost, account, remain_tickets, qrImage);
         }
         else{
             reservation(userId, showId, scheduleId, ticketNumber);
@@ -64,7 +66,7 @@ public class ShowDetailService {
             totalCost = ticketNumber * getTicketCost(scheduleId);
             account = getAccount(showId);
 
-            reservationResponse = ReservationResponse.from(true, totalCost, account, remain_tickets);
+            reservationResponse = ReservationResponse.from(true, totalCost, account, remain_tickets, qrImage);
         }
         return reservationResponse;
     }
