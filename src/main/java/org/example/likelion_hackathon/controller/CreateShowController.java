@@ -27,15 +27,17 @@ public class CreateShowController {
     private final S3Service s3Service;
 
     @PostMapping(value = "/manager/create/save", consumes = "multipart/form-data")
-    public ResponseEntity<Map<String,Object>> createShow(@RequestPart("poster") MultipartFile multipartFile, @RequestPart("request") CreateShowRequest createShowRequest, HttpSession session){
+    public ResponseEntity<Map<String,Object>> createShow(@RequestPart("poster") MultipartFile multipartFile, @RequestPart("qrImage") MultipartFile qrImage, @RequestPart("request") CreateShowRequest createShowRequest, HttpSession session){
         String uploadUrl;
+        String qrPicUrl;
         try {
             uploadUrl = s3Service.uploadFiles(multipartFile, "show/");
+            qrPicUrl = s3Service.uploadFiles(qrImage, "qr/");
         } catch (IOException e) {
             return ResponseEntity.ok(Collections.singletonMap("error","이미지 업로드에 실패했습니다: " + e.getMessage()));
         }
 
-        createShowService.saveShowAndSchedule(createShowRequest, uploadUrl, session);
+        createShowService.saveShowAndSchedule(createShowRequest, uploadUrl, qrPicUrl, session);
 
         return ResponseEntity.ok().body(Collections.singletonMap("status",true));
     }

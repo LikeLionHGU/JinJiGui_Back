@@ -15,13 +15,15 @@ public class ReservationResponse {
     private int totalCost;
     private String account;
     private int remain_tickets;
+    private String qrImage;
 
-    public static ReservationResponse from(boolean available, int totalCost, String account, int remain_tickets) {
+    public static ReservationResponse from(boolean available, int totalCost, String account, int remain_tickets, String qrImage) {
         return ReservationResponse.builder()
                 .available(available)
                 .totalCost(totalCost)
                 .account(account)
                 .remain_tickets(remain_tickets)
+                .qrImage(qrImage)
                 .build();
     }
 }

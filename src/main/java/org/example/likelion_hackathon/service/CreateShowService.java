@@ -20,8 +20,8 @@ public class CreateShowService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
 
-    public void saveShowAndSchedule(CreateShowRequest createShowRequest, String poster, HttpSession session) {
-        Show show = Show.from(createShowRequest, poster);
+    public void saveShowAndSchedule(CreateShowRequest createShowRequest, String poster, String qrCode, HttpSession session) {
+        Show show = Show.from(createShowRequest, poster, qrCode);
         show.setUser(userRepository.findById((String) session.getAttribute("id")).orElseThrow(() -> new IllegalArgumentException("no login")));
         showRepository.save(show);
 

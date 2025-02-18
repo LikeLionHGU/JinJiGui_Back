@@ -23,9 +23,10 @@ import java.util.Map;
 public class ManagerController {
     private final ManagerService managerService;
 
-    @GetMapping("/manager/show")
-    public ResponseEntity<ManagerShowListResponse> getManagerShow(HttpSession session) {
-        List<ManagerShowDto> managerShowDtoList = managerService.managerShowDtoList(session);
+    @GetMapping("/manager/show/{userId}")
+    public ResponseEntity<ManagerShowListResponse> getManagerShow(@PathVariable String userId, HttpSession session) {
+        System.out.println("Id >> " + userId);
+        List<ManagerShowDto> managerShowDtoList = managerService.managerShowDtoList(userId);
         ManagerShowListResponse managerShowListResponse = ManagerShowListResponse.from(managerShowDtoList);
         return ResponseEntity.ok().body(managerShowListResponse);
     }

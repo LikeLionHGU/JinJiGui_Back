@@ -37,8 +37,7 @@ public class ShowDetailController {
     @PostMapping("/show/reservation")
     public ResponseEntity<ReservationResponse> reservation(@RequestBody ReservationRequest reservationRequest, HttpSession session) {
         System.out.println("<<ok>>");
-        Long showId = reservationRequest.getShowId();
-        ReservationResponse reservationResponse = showDetailService.returnReservationResponse(showId, session, reservationRequest);
+        ReservationResponse reservationResponse = showDetailService.returnReservationResponse(reservationRequest);
         return ResponseEntity.ok().body(reservationResponse);
     }
 }

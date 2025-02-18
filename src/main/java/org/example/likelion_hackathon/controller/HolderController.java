@@ -1,10 +1,9 @@
 package org.example.likelion_hackathon.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.likelion_hackathon.controller.request.HolderRequest;
 import org.example.likelion_hackathon.controller.response.holder.HolderResponse;
+import org.example.likelion_hackathon.dto.holder.HolderDto;
 import org.example.likelion_hackathon.dto.holder.ReservationIdDto;
-import org.example.likelion_hackathon.dto.myPage.ReservationList.ReservationDto;
 import org.example.likelion_hackathon.service.HolderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +20,14 @@ public class HolderController {
     private final HolderService holderService;
 
     @GetMapping("/manager/holder/{scheduleId}")
-    public ResponseEntity<List<HolderResponse>> getHolders(@PathVariable("scheduleId") Long scheduleId) {
-        return ResponseEntity.ok().body(holderService.makeHolderResponse(scheduleId));
+    public ResponseEntity<HolderResponse> getHolders(@PathVariable("scheduleId") Long scheduleId) {
+        HolderResponse holderResponse = HolderResponse.from(holderService.makeHolderResponse(scheduleId));
+        return ResponseEntity.ok().body(holderResponse);
     }
 
-    @PatchMapping("/manager/holder/save")
-    public ResponseEntity<?> saveHolders(@RequestBody List<ReservationIdDto> reservationList) {
-        if (reservationList == null || reservationList.isEmpty()) {
+    @PostMapping("/manager/holder/save")
+    public ResponseEntity<?> saveHolders(@RequestBody ReservationIdDto[] reservationList) {
+        if (reservationList == null) {
             Map<String, Object> response = new HashMap<>();
             response.put("status", false);
             response.put("message", "예매자가 선택되지 않았습니다");
@@ -45,9 +45,9 @@ public class HolderController {
         }
     }
 
-    @PatchMapping("/manager/holder/delete")
-    public ResponseEntity<?> deleteHolders(@RequestBody List<ReservationIdDto> reservationList) {
-        if (reservationList == null || reservationList.isEmpty()) {
+    @PostMapping("/manager/holder/delete")
+    public ResponseEntity<?> deleteHolders(@RequestBody ReservationIdDto[] reservationList) {
+        if (reservationList == null) {
             Map<String, Object> response = new HashMap<>();
             response.put("status", false);
             response.put("message", "예매자가 선택되지 않았습니다");

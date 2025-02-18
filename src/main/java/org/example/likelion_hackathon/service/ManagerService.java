@@ -17,10 +17,8 @@ public class ManagerService {
     private final ShowRepository showRepository;
     private final ScheduleRepository scheduleRepository;
 
-    public List<ManagerShowDto> managerShowDtoList(HttpSession session) {
-        String id = (String) session.getAttribute("id");
-
-        List<Show> showList = showRepository.findShowByUser_Id(id);
+    public List<ManagerShowDto> managerShowDtoList(String userId) {
+        List<Show> showList = showRepository.findShowByUser_Id(userId);
 
         return showList.stream().map(ManagerShowDto::from).toList();
     }
