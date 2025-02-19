@@ -12,17 +12,19 @@ import org.example.likelion_hackathon.domain.User;
 @NoArgsConstructor
 public class CsvDto {
     private String isDeposit;
-    private int totalCost;
+    private String totalCost;
+    private String stdNumber;
     private String name;
-    private int stdNumber;
+    private String ticketNumber;
     private String phoneNumber;
 
     public static CsvDto from(Reservation reservation, User user, Schedule schedule, int totalCost){
         return CsvDto.builder()
                 .isDeposit(reservation.isDeposit()?"O":"X")
+                .totalCost(totalCost + "")
+                .stdNumber(user.getStdCode() + "")
                 .name(user.getName())
-                .totalCost(totalCost)
-                .stdNumber(user.getStdCode())
+                .ticketNumber(reservation.getTicketNumber() + "")
                 .phoneNumber(user.getPhoneNumber())
                 .build();
     }

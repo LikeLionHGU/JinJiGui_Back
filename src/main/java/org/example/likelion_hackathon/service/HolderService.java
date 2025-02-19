@@ -80,4 +80,8 @@ public class HolderService {
         }
         return true;
     }
+
+    public Schedule getSchedule(Long scheduleId){
+        return scheduleRepository.findById(scheduleId).orElseThrow(() -> new IllegalArgumentException("no such schedule"));
+    }
 }

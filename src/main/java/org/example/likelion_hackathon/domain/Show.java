@@ -31,7 +31,10 @@ public class Show {
 
     private LocalDate postDate;
     private int view;
+
+    @Column(length=1000)
     private String poster;
+
     private String content;
     private int maxTickets;
     private String account;
@@ -41,7 +44,10 @@ public class Show {
     private int runtime;
     private String location;
     private String clubName;
+
+    @Column(length=1000)
     private String qrCode;
+
     private String category;
 
     public static Show from(CreateShowRequest request, String poster, String qrCode) {

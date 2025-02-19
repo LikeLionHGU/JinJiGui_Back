@@ -21,4 +21,11 @@ public class MainController {
         MainResponse mainResponse = MainResponse.from(mainResponseList);
         return ResponseEntity.ok().body(mainResponse);
     }
+
+    @GetMapping("/main/banner")
+    public ResponseEntity<MainResponse> mainTop4(){
+        List<MainDto> mainResponseList = mainService.topFour();
+        MainResponse mainResponse = MainResponse.from(mainResponseList);
+        return ResponseEntity.ok().body(mainResponse);
+    }
 }
