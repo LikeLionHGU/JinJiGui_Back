@@ -26,13 +26,16 @@ public class CreateShowController {
 
     private final S3Service s3Service;
 
+    // qr 코드 관련된 거 전부 주석처리해서 배포 > 프론트가 되는지 확인.
     @PostMapping(value = "/manager/create/save", consumes = "multipart/form-data")
-    public ResponseEntity<Map<String,Object>> createShow(@RequestPart("poster") MultipartFile multipartFile, @RequestPart("qrImage") MultipartFile qrImage, @RequestPart("request") CreateShowRequest createShowRequest, HttpSession session){
-        String uploadUrl;
-        String qrPicUrl;
+    public ResponseEntity<Map<String,Object>> createShow(@RequestPart("poster") MultipartFile multipartFile, @RequestPart(value = "qrImage", required = false) MultipartFile qrImage, @RequestPart("request") CreateShowRequest createShowRequest, HttpSession session){
+        String uploadUrl = null;
+        String qrPicUrl = null;
         try {
             uploadUrl = s3Service.uploadFiles(multipartFile, "show/");
-            qrPicUrl = s3Service.uploadFiles(qrImage, "qr/");
+            if(qrImage != null){
+                qrPicUrl = s3Service.uploadFiles(qrImage, "qr/");
+            }
         } catch (IOException e) {
             return ResponseEntity.ok(Collections.singletonMap("error","이미지 업로드에 실패했습니다: " + e.getMessage()));
         }

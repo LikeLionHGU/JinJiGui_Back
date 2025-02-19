@@ -34,6 +34,7 @@ public class ShowDetailController {
         return ResponseEntity.ok().body(detailResponse);
     }
 
+    // 이거 확인 필요
     @PostMapping("/show/reservation")
     public ResponseEntity<ReservationResponse> reservation(@RequestBody ReservationRequest reservationRequest, HttpSession session) {
         System.out.println("<<ok>>");

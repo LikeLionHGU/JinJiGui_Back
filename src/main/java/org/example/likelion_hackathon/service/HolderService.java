@@ -1,6 +1,7 @@
 package org.example.likelion_hackathon.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.likelion_hackathon.dto.holder.CsvDto;
 import org.example.likelion_hackathon.dto.holder.HolderDto;
 import org.example.likelion_hackathon.domain.Reservation;
 import org.example.likelion_hackathon.domain.Schedule;
@@ -35,6 +36,24 @@ public class HolderService {
             holderResponseList.add(holderResponse);
         }
         return holderResponseList;
+    }
+
+    public List<CsvDto> makeHolderResponseCsv(Long id){
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("no such schedule"));
+        List<Reservation> reservationList = reservationRepository.findReservationsBySchedule(schedule);
+        List<User> userList = new ArrayList<>();
+        List<Integer> totalCostList = new ArrayList<>();
+        for (Reservation reservation : reservationList) {
+            userList.add(reservation.getUser());
+            totalCostList.add(schedule.getCost() * reservation.getTicketNumber());
+        }
+
+        List<CsvDto> csvDtoList = new ArrayList<>();
+        for (int i = 0; i < userList.size(); i++) {
+            CsvDto csvDto = CsvDto.from(reservationList.get(i), userList.get(i), schedule, totalCostList.get(i));
+            csvDtoList.add(csvDto);
+        }
+        return csvDtoList;
     }
 
     public boolean updateIsDepositToTrue(ReservationIdDto[] reservationList) {

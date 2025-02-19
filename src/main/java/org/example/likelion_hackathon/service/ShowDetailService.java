@@ -58,6 +58,7 @@ public class ShowDetailService {
         String qrImage = show.getQrCode();
         if(remain_tickets < 0){
             totalCost = 0;
+            remain_tickets = schedule.getMaxPeople() - schedule.getApplyPeople();
             reservationResponse = ReservationResponse.from(false, totalCost, account, remain_tickets, qrImage);
         }
         else{

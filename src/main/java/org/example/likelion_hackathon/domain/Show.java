@@ -42,6 +42,7 @@ public class Show {
     private String location;
     private String clubName;
     private String qrCode;
+    private String category;
 
     public static Show from(CreateShowRequest request, String poster, String qrCode) {
         return Show.builder()
@@ -57,6 +58,7 @@ public class Show {
                 .runtime(request.getRuntime())
                 .location(request.getLocation())
                 .clubName(request.getClubName())
+                .category(request.getCategory())
                 .qrCode(qrCode)
                 .build();
     }

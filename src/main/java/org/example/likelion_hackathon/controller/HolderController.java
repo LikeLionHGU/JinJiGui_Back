@@ -21,7 +21,7 @@ public class HolderController {
 
     @GetMapping("/manager/holder/{scheduleId}")
     public ResponseEntity<HolderResponse> getHolders(@PathVariable("scheduleId") Long scheduleId) {
-        HolderResponse holderResponse = HolderResponse.from(holderService.makeHolderResponse(scheduleId));
+        HolderResponse holderResponse = HolderResponse.from(holderService.makeHolderResponse(scheduleId), holderService.makeHolderResponseCsv(scheduleId));
         return ResponseEntity.ok().body(holderResponse);
     }
 

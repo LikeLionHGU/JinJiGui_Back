@@ -26,6 +26,7 @@ public class ShowDetailResponse {
     private LocalDate endDate;
     private int maxTickets;
     private int runTime;
+    private String category;
     private UserDetailDto user;
     private List<ScheduleDetailDto> schedule;
 
@@ -44,6 +45,7 @@ public class ShowDetailResponse {
                 .runTime(show.getRuntime())
                 .user(UserDetailDto.from(show.getUser()))
                 .schedule(scheduleList)
+                .category(show.getCategory())
                 .build();
     }
 }
