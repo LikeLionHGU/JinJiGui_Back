@@ -17,6 +17,7 @@ public class ShowMainDto {
     private LocalDate endDate;
     private String title;
     private String clubName;
+    private String category;
 
     public static ShowMainDto from(Show show) {
         return ShowMainDto.builder()
@@ -26,6 +27,7 @@ public class ShowMainDto {
                 .endDate(show.getEndDate())
                 .title(show.getTitle())
                 .clubName(show.getClubName())
+                .category(show.getCategory())
                 .build();
     }
 }
