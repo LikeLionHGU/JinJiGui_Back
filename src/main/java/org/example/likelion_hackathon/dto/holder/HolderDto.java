@@ -11,6 +11,7 @@ import org.example.likelion_hackathon.domain.User;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HolderDto {
+    private HolderShowDto show;
     private HolderReservationDto reservation;
     private HolderUserDto user;
     private HolderScheduleDto schedule;
@@ -18,6 +19,7 @@ public class HolderDto {
 
     public static HolderDto from(Reservation reservation, User user, Schedule schedule, int totalCost) {
         return HolderDto.builder()
+                .show(HolderShowDto.from(schedule.getShow()))
                 .reservation(HolderReservationDto.from(reservation))
                 .user(HolderUserDto.from(user))
                 .schedule(HolderScheduleDto.from(schedule))
