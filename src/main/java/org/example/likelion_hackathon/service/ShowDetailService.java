@@ -43,26 +43,29 @@ public class ShowDetailService {
     }
 
     public ReservationResponse returnReservationResponse(ReservationRequest reservationRequest){
-        int totalCost;
+        int totalCost = 0;
         String account = null;
         int remain_tickets;
-        ReservationResponse reservationResponse = null;
-        int ticketNumber = reservationRequest.getTicketNumber();
-        Long scheduleId = reservationRequest.getScheduleId();
+        String qrImage = null;
 
+        ReservationResponse reservationResponse = null;
+        String userId = reservationRequest.getUserId();
+
+        Long scheduleId = reservationRequest.getScheduleId();
+        int ticketNumber = reservationRequest.getTicketNumber();
         remain_tickets = canReserve(scheduleId, ticketNumber);
+
         Schedule schedule = scheduleRepository.findById(reservationRequest.getScheduleId()).orElse(null);
         Long showId = schedule.getShow().getId();
-        String userId = reservationRequest.getUserId();
         Show show = showRepository.findById(showId).orElse(null);
-        String qrImage = show.getQrCode();
+        qrImage = show.getQrCode();
+
         if(remain_tickets < 0){
-            totalCost = 0;
-            remain_tickets = schedule.getMaxPeople() - schedule.getApplyPeople();
+            remain_tickets = 0;
             reservationResponse = ReservationResponse.from(false, totalCost, account, remain_tickets, qrImage);
         }
         else{
-            reservation(userId, showId, scheduleId, ticketNumber);
+            reservation(userId, scheduleId, ticketNumber);
 
             totalCost = ticketNumber * getTicketCost(scheduleId);
             account = getAccount(showId);
@@ -80,15 +83,15 @@ public class ShowDetailService {
         return maxPeople - (applyPeople + ticketNumber);
     }
 
-    public void reservation(String userId, Long showId, Long scheduleId, int ticketNumber){
-        System.out.println("<<WoW USER : "+userId);
+    public void reservation(String userId, Long scheduleId, int ticketNumber){
+        System.out.println("<<reservation : "+userId + ">>");
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("no such user"));
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new IllegalArgumentException("no such schedule"));
         Reservation reservation = Reservation.from(user, schedule, ticketNumber);
 
         schedule.setApplyPeople(schedule.getApplyPeople() + ticketNumber);
-        scheduleRepository.save(schedule);
         reservationRepository.save(reservation);
+        scheduleRepository.save(schedule);
     }
 
     public int getTicketCost(Long scheduleId){

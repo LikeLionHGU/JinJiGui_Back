@@ -83,18 +83,25 @@ public class HolderService {
     }
 
     public boolean deleteReservations(ReservationIdDto[] reservationList) {
+        int count = 0;
+        Schedule selectedSchedule = scheduleRepository.findById(reservationList[0].getReservationId()).orElse(null);
         for (ReservationIdDto reservationIdDto : reservationList) {
             Long id = reservationIdDto.getReservationId();
             Reservation reservation = reservationRepository.findById(id).orElse(null);
             if (reservation == null) {
                 return false;
             }
+            if (selectedSchedule == null) {
+                selectedSchedule = reservation.getSchedule();
+            }
+            count += reservation.getTicketNumber();
             reservationRepository.delete(reservation);
         }
-        Reservation reservation = reservationRepository.findById(reservationList[0].getReservationId()).orElse(null);
-        Schedule selectedSchedule =  reservation.getSchedule();
-        selectedSchedule.setApplyPeople(selectedSchedule.getApplyPeople() - reservationList.length);
-        scheduleRepository.save(selectedSchedule);
+
+        if (selectedSchedule != null) {
+            selectedSchedule.setApplyPeople(selectedSchedule.getApplyPeople() - count);
+            scheduleRepository.save(selectedSchedule);
+        }
         return true;
     }
 
