@@ -45,6 +45,26 @@ public class HolderController {
         }
     }
 
+    @PostMapping("/manager/holder/cancel")
+    public ResponseEntity<?> cancelHolders(@RequestBody ReservationIdDto[] reservationList) {
+        if (reservationList == null) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", false);
+            response.put("message", "예매자가 선택되지 않았습니다");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+        boolean check = holderService.updateIsDepositToCancel(reservationList);
+        if (check) {
+            Map<String, Boolean> response = Collections.singletonMap("status", true);
+            return ResponseEntity.ok().body(response);
+        } else {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", false);
+            response.put("message", "정상적으로 저장되지 않았습니다");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
     @PostMapping("/manager/holder/delete")
     public ResponseEntity<?> deleteHolders(@RequestBody ReservationIdDto[] reservationList) {
         if (reservationList == null) {

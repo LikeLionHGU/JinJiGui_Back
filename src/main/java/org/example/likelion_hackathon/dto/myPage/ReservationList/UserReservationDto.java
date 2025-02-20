@@ -11,6 +11,7 @@ import org.example.likelion_hackathon.domain.Reservation;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserReservationDto {
+    private int primary;
     private ShowDto show;
     private ScheduleDto schedule;
     private ReservationDto reservation;
@@ -19,7 +20,9 @@ public class UserReservationDto {
     private int ticketNumber;
 
     public static UserReservationDto from(Reservation reservation) {
+        int random = (int) (Math.random()*1000);
         return UserReservationDto.builder()
+                .primary(random)
                 .show(ShowDto.from(reservation.getSchedule().getShow()))
                 .schedule(ScheduleDto.from(reservation.getSchedule()))
                 .reservation(ReservationDto.from(reservation))

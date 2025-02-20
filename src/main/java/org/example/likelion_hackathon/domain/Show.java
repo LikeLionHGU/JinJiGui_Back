@@ -35,7 +35,10 @@ public class Show {
     @Column(length=1000)
     private String poster;
 
+    @Column(length=1000)
+    @Lob
     private String content;
+
     private int maxTickets;
     private String account;
     private String title;

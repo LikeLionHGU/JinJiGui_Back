@@ -52,11 +52,17 @@ public class MypageController {
 
     @PutMapping("/mypage/save/{userId}")
     public ResponseEntity<UpdateResponse> saveUserInfo(@PathVariable String userId, @RequestBody UpdateResponse updateResponse) {
+        System.out.println("error1");
         User user = mypageService.getUserById(userId);
+        System.out.println("error2");
         user.setName(updateResponse.getUser().getUserName());
+        System.out.println("error3");
         user.setPhoneNumber(updateResponse.getUser().getPhoneNumber());
+        System.out.println("error4");
         user.setStdCode(updateResponse.getUser().getStdCode());
+        System.out.println("error5");
         mypageService.saveUser(user);
+        System.out.println("error6");
         return ResponseEntity.ok().body(UpdateResponse.from(user));
     }
 
