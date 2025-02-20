@@ -32,11 +32,10 @@ public class Show {
     private LocalDate postDate;
     private int view;
 
-    @Column(length=1000)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String poster;
 
-    @Column(length=1000)
-    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String content;
 
     private int maxTickets;
@@ -48,7 +47,7 @@ public class Show {
     private String location;
     private String clubName;
 
-    @Column(length=1000)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String qrCode;
 
     private String category;

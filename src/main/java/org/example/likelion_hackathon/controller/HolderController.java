@@ -1,5 +1,6 @@
 package org.example.likelion_hackathon.controller;
 
+import com.amazonaws.Response;
 import lombok.RequiredArgsConstructor;
 import org.example.likelion_hackathon.controller.response.holder.HolderResponse;
 import org.example.likelion_hackathon.dto.holder.HolderDto;
@@ -67,7 +68,7 @@ public class HolderController {
 
     @PostMapping("/manager/holder/delete")
     public ResponseEntity<?> deleteHolders(@RequestBody ReservationIdDto[] reservationList) {
-        if (reservationList == null) {
+        if (reservationList == null || reservationList.length == 0) {
             Map<String, Object> response = new HashMap<>();
             response.put("status", false);
             response.put("message", "예매자가 선택되지 않았습니다");

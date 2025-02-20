@@ -40,7 +40,7 @@ public class CreateShowController {
             return ResponseEntity.ok(Collections.singletonMap("error","이미지 업로드에 실패했습니다: " + e.getMessage()));
         }
 
-        createShowService.saveShowAndSchedule(createShowRequest, uploadUrl, qrPicUrl, session);
+        createShowService.saveShowAndSchedule(createShowRequest, uploadUrl, qrPicUrl);
 
         return ResponseEntity.ok().body(Collections.singletonMap("status",true));
     }

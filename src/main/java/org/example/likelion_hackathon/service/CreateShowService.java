@@ -20,7 +20,7 @@ public class CreateShowService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
 
-    public void saveShowAndSchedule(CreateShowRequest createShowRequest, String poster, String qrCode, HttpSession session) {
+    public void saveShowAndSchedule(CreateShowRequest createShowRequest, String poster, String qrCode) {
         System.out.println("error1");
         Show show = Show.from(createShowRequest, poster, qrCode);
         System.out.println("error2");

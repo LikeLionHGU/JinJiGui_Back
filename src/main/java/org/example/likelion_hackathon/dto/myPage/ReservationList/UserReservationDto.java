@@ -26,7 +26,7 @@ public class UserReservationDto {
                 .show(ShowDto.from(reservation.getSchedule().getShow()))
                 .schedule(ScheduleDto.from(reservation.getSchedule()))
                 .reservation(ReservationDto.from(reservation))
-                .totalCost(reservation.getSchedule().getCost())
+                .totalCost(reservation.getSchedule().getCost() * reservation.getTicketNumber())
                 .poster(reservation.getSchedule().getShow().getPoster())
                 .ticketNumber(reservation.getTicketNumber())
                 .build();
