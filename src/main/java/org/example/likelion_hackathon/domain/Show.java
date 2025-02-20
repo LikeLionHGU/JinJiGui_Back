@@ -57,7 +57,7 @@ public class Show {
                 .postDate(LocalDate.now())
                 .view(0)
                 .poster(poster)
-                .content(request.getContent().replace("\r\n", "<br>").replace("\n", "<br>"))
+                .content(request.getContent())
                 .maxTickets(request.getMaxTickets())
                 .account(request.getAccount())
                 .title(request.getTitle())

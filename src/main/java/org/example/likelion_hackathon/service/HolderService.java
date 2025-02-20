@@ -91,6 +91,10 @@ public class HolderService {
             }
             reservationRepository.delete(reservation);
         }
+        Reservation reservation = reservationRepository.findById(reservationList[0].getReservationId()).orElse(null);
+        Schedule selectedSchedule =  reservation.getSchedule();
+        selectedSchedule.setApplyPeople(selectedSchedule.getApplyPeople() - reservationList.length);
+        scheduleRepository.save(selectedSchedule);
         return true;
     }
 
