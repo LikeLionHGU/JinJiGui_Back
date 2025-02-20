@@ -69,6 +69,19 @@ public class HolderService {
         return true;
     }
 
+    public boolean updateIsDepositToCancel(ReservationIdDto[] reservationList){
+        for (ReservationIdDto reservationIdDto : reservationList) {
+            Long id = reservationIdDto.getReservationId();
+            Reservation reservation = reservationRepository.findById(id).orElse(null);
+            if (reservation == null) {
+                return false;
+            }
+            reservation.setDeposit(false);
+            reservationRepository.save(reservation);
+        }
+        return true;
+    }
+
     public boolean deleteReservations(ReservationIdDto[] reservationList) {
         for (ReservationIdDto reservationIdDto : reservationList) {
             Long id = reservationIdDto.getReservationId();
@@ -79,5 +92,9 @@ public class HolderService {
             reservationRepository.delete(reservation);
         }
         return true;
+    }
+
+    public Schedule getSchedule(Long scheduleId){
+        return scheduleRepository.findById(scheduleId).orElseThrow(() -> new IllegalArgumentException("no such schedule"));
     }
 }

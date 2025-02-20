@@ -28,9 +28,8 @@ public class MypageController {
     }
 
 
-    @GetMapping("/mypage/update")
-    public ResponseEntity<UpdateResponse> updateUserInfo(HttpSession session) {
-        String userId = (String) session.getAttribute("id");
+    @GetMapping("/mypage/update/{userId}")
+    public ResponseEntity<UpdateResponse> updateUserInfo(@PathVariable String userId) {
         if(userId == null) {
             System.out.println("<<userId is null>>");
         }else{
@@ -51,22 +50,25 @@ public class MypageController {
         return ResponseEntity.ok().body(updateResponse);
     }
 
-    @PutMapping("/mypage/save")
-    public ResponseEntity<UpdateResponse> saveUserInfo(@RequestBody UpdateResponse updateResponse ,HttpSession session) {
-        String userId = (String) session.getAttribute("id");
-
+    @PutMapping("/mypage/save/{userId}")
+    public ResponseEntity<UpdateResponse> saveUserInfo(@PathVariable String userId, @RequestBody UpdateResponse updateResponse) {
+        System.out.println("error1");
         User user = mypageService.getUserById(userId);
+        System.out.println("error2");
         user.setName(updateResponse.getUser().getUserName());
+        System.out.println("error3");
         user.setPhoneNumber(updateResponse.getUser().getPhoneNumber());
+        System.out.println("error4");
         user.setStdCode(updateResponse.getUser().getStdCode());
+        System.out.println("error5");
         mypageService.saveUser(user);
+        System.out.println("error6");
         return ResponseEntity.ok().body(UpdateResponse.from(user));
     }
 
-    @PutMapping("/add-info")
-    public ResponseEntity<UpdateResponse> inputInfo(@RequestBody UpdateResponse updateResponse, HttpSession session){
-        String userId = (String) session.getAttribute("id");
-
+    @PutMapping("/add-info/{userId}")
+    public ResponseEntity<UpdateResponse> inputInfo(@PathVariable String userId, @RequestBody UpdateResponse updateResponse){
+//        String userId = (String) session.getAttribute("id");
         User user = mypageService.getUserById(userId);
         user.setName(updateResponse.getUser().getUserName());
         user.setPhoneNumber(updateResponse.getUser().getPhoneNumber());

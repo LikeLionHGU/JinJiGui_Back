@@ -18,6 +18,7 @@ public class ShowMainDto {
     private String title;
     private String clubName;
     private String category;
+    private int view;
 
     public static ShowMainDto from(Show show) {
         return ShowMainDto.builder()
@@ -28,6 +29,7 @@ public class ShowMainDto {
                 .title(show.getTitle())
                 .clubName(show.getClubName())
                 .category(show.getCategory())
+                .view(show.getView())
                 .build();
     }
 }
