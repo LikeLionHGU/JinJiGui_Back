@@ -3,6 +3,7 @@ package org.example.likelion_hackathon.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.example.likelion_hackathon.controller.request.ReservationRequest;
+import org.example.likelion_hackathon.controller.request.ShowDetailRequest;
 import org.example.likelion_hackathon.controller.response.ReservationResponse;
 import org.example.likelion_hackathon.controller.response.detail.DetailResponse;
 import org.example.likelion_hackathon.controller.response.detail.ShowDetailResponse;
@@ -18,13 +19,29 @@ public class ShowDetailController {
     private final ShowDetailService showDetailService;
     private final ShowRepository showRepository;
 
-    @GetMapping("/show/{id}")
-    public ResponseEntity<DetailResponse> getShowDetail(@PathVariable Long id, HttpSession session) {
-        boolean isExist = showDetailService.countUpView(id);
+//    @GetMapping("/show/{id}")
+//    public ResponseEntity<DetailResponse> getShowDetail(@PathVariable Long id, HttpSession session) {
+//        boolean isExist = showDetailService.countUpView(id);
+//        ShowDetailResponse showDetailResponse = null;
+//        if(isExist){
+//            Show show = showDetailService.getShowById(id);
+//            showDetailResponse = ShowDetailResponse.from(show, showDetailService.getScheduleDetailDetailDtoList(show, session));
+//        } else{
+//            Show show = new Show();
+//            show.setId((long)-1);
+//            showDetailResponse = ShowDetailResponse.from(show, null);
+//        }
+//        DetailResponse detailResponse = DetailResponse.from(showDetailResponse);
+//        return ResponseEntity.ok().body(detailResponse);
+//    }
+
+    @PostMapping("/show")
+    public ResponseEntity<DetailResponse> getShowDetail(@RequestBody ShowDetailRequest showDetailRequest) {
+        boolean isExist = showDetailService.countUpView(showDetailRequest.getShowId());
         ShowDetailResponse showDetailResponse = null;
         if(isExist){
-            Show show = showDetailService.getShowById(id);
-            showDetailResponse = ShowDetailResponse.from(show, showDetailService.getScheduleDetailDetailDtoList(show, session));
+            Show show = showDetailService.getShowById(showDetailRequest.getShowId());
+            showDetailResponse = ShowDetailResponse.from(show, showDetailService.getScheduleDetailDetailDtoList(show, showDetailRequest.getUserId()));
         } else{
             Show show = new Show();
             show.setId((long)-1);

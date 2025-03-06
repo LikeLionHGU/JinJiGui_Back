@@ -104,10 +104,10 @@ public class ShowDetailService {
         return show.getAccount();
     }
 
-    public List<ScheduleDetailDto> getScheduleDetailDetailDtoList(Show show, HttpSession session){
+    // TODO : 세션 사용하지 않는 방법으로 다시 구현해야함
+    public List<ScheduleDetailDto> getScheduleDetailDetailDtoList(Show show, String userId){
         List<Schedule> scheduleList = show.getScheduleList();
         List<ScheduleDetailDto> scheduleDetailDtoList = scheduleList.stream().map(ScheduleDetailDto::from).toList();
-        String userId = (String) session.getAttribute("id");
         for(ScheduleDetailDto scheduleDetailDto : scheduleDetailDtoList){
             Reservation reservation = reservationRepository.getReservationBySchedule_IdAndUser_Id(scheduleDetailDto.getId(), userId);
             scheduleDetailDto.setCanReservation(reservation != null);

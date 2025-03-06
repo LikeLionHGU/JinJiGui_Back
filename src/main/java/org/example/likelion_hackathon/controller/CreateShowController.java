@@ -29,11 +29,12 @@ public class CreateShowController {
     // qr 코드 관련된 거 전부 주석처리해서 배포 > 프론트가 되는지 확인.
     @PostMapping(value = "/manager/create/save", consumes = "multipart/form-data")
     public ResponseEntity<Map<String,Object>> createShow(@RequestPart("poster") MultipartFile multipartFile, @RequestPart(value = "qrImage", required = false) MultipartFile qrImage, @RequestPart("request") CreateShowRequest createShowRequest, HttpSession session){
+        System.out.println("qrImage >> " + qrImage);
         String uploadUrl = null;
         String qrPicUrl = null;
         try {
             uploadUrl = s3Service.uploadFiles(multipartFile, "show/");
-            if(qrImage != null){
+            if(qrImage != null && !qrImage.isEmpty()){
                 qrPicUrl = s3Service.uploadFiles(qrImage, "qr/");
             }
         } catch (IOException e) {

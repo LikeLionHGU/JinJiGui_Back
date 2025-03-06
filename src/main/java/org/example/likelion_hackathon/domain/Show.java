@@ -47,7 +47,7 @@ public class Show {
     private String location;
     private String clubName;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String qrCode;
 
     private String category;

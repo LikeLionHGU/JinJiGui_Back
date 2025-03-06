@@ -21,26 +21,18 @@ public class CreateShowService {
     private final UserRepository userRepository;
 
     public void saveShowAndSchedule(CreateShowRequest createShowRequest, String poster, String qrCode) {
-        System.out.println("error1");
         Show show = Show.from(createShowRequest, poster, qrCode);
-        System.out.println("error2");
         System.out.println("createShowRequest.getUserId() >> " + createShowRequest.getUserId());
         show.setUser(userRepository.findById(createShowRequest.getUserId()).orElse(null));
-        System.out.println("error3");
         showRepository.save(show);
-        System.out.println("error4");
 
         List<CreateScheduleDto> scheduleDtoList = createShowRequest.getSchedule();
-        System.out.println("error5");
         System.out.println("scheduleList1 : "+ scheduleDtoList.get(0).getDate());
         List<Schedule> scheduleList = scheduleDtoList.stream().map(Schedule::from).toList();
-        System.out.println("error6");
         for (Schedule schedule : scheduleList) {
             schedule.setShow(show);
-            System.out.println("error7");
             scheduleRepository.save(schedule);
-            System.out.println("error8");
         }
-
+        System.out.println("create : success");
     }
 }
